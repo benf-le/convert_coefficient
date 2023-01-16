@@ -1,8 +1,12 @@
 #include<stdio.h>
 #include<math.h>
+#include <conio.h>
+
 
 
 // user-defined function to implement the conversion algorithm
+
+typedef struct string string;
 
 //Binary
 long binToDec(long binaryNumber) {
@@ -20,6 +24,7 @@ long binToDec(long binaryNumber) {
     }
     return decimalRep;
 }
+
 long binToOct(long binaryNumber) {
     long temp = binaryNumber;
     long oct = 0, dec = 0, i = 0;
@@ -41,12 +46,11 @@ long binToOct(long binaryNumber) {
     return oct;
 }
 
-long binToHex(long binaryNumber){
+long binToHex(long binaryNumber) {
     long hexadecimalnum = 0, i = 1, rem;
 
 
-    while (binaryNumber != 0)
-    {
+    while (binaryNumber != 0) {
         rem = binaryNumber % 10;
         hexadecimalnum = hexadecimalnum + rem * i;
         i = i * 2;
@@ -74,7 +78,8 @@ long decToOct(int decimalNumber) {
 
 long decToBin(long decimalNumber) {
 
-    long  binary = 0, remainder, product = 1;
+
+    long binary = 0, remainder, product = 1;
     // Since the data type is int, it can only accept values up to 1023 before switching to long.
 
     while (decimalNumber != 0) {
@@ -83,8 +88,17 @@ long decToBin(long decimalNumber) {
         decimalNumber = decimalNumber / 2;
         product *= 10;
     }
-   return binary ;
+    return binary;
 
+}
+void decToHex(long decimalNumber) {
+    if (decimalNumber < 16)
+    {
+        printf("%c","0123456789ABCDEF"[decimalNumber]); // hien thi ky tu thu n trong chuoi
+        return;
+    }
+    else decToHex(decimalNumber / 16);
+    printf("%c","0123456789ABCDEF"[decimalNumber % 16]);
 }
 
 
@@ -92,9 +106,10 @@ int main() {
     printf("Enter the coefficient to convert: ");
     char coe;
     scanf("%c", &coe);
-    long binaryNumber, decimalNumber,octNumber, hexNumber;
+    long binaryNumber, decimalNumber, octNumber, hexNumber;
+
     switch (coe) {
-        case 'B':
+        case 'B' :
             printf("Enter a binary number:  ");
             scanf("%ld", &binaryNumber);
             // calling the binaryToDecimal function and
@@ -108,7 +123,8 @@ int main() {
             printf("\nHexa Number: %lX", hexNumber);
             break;
 
-        case 'D':
+
+        case 'D' :
             printf("Enter a decimal number:  ");
             scanf("%ld", &decimalNumber);
             octNumber = decToOct(decimalNumber);
@@ -117,10 +133,12 @@ int main() {
             printf("\nDecimal number: %ld\nBinary Number: %ld", decimalNumber, binaryNumber);
 
             printf("\nOctal Number: %ld", octNumber);
-//            printf("\nHexa Number: %lX", hexNumber);
-            return 0;
+            printf("\nHex Number: "); decToHex(decimalNumber);
             break;
 
+
+        case 'O':
+            break;
     }
 
 
