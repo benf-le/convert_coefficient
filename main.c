@@ -91,16 +91,69 @@ long decToBin(long decimalNumber) {
     return binary;
 
 }
-void decToHex(long decimalNumber) {
-    if (decimalNumber < 16)
-    {
-        printf("%c","0123456789ABCDEF"[decimalNumber]); // hien thi ky tu thu n trong chuoi
+
+long decToHex(long decimalNumber) {
+    if (decimalNumber < 16) {
+        printf("%c", "0123456789ABCDEF"[decimalNumber]); // hien thi ky tu thu n trong chuoi
         return;
-    }
-    else decToHex(decimalNumber / 16);
-    printf("%c","0123456789ABCDEF"[decimalNumber % 16]);
+    } else decToHex(decimalNumber / 16);
+    printf("%c", "0123456789ABCDEF"[decimalNumber % 16]);
 }
 
+//Octal
+
+long octToDec(long octNumber) {
+    int p = 0, decimal = 0, r;
+
+    while (octNumber > 0) {
+
+        // retrieving the right-most digit of n
+        r = octNumber % 10;
+
+        // dividing n by 10 to remove the
+        // right-most digits since it is already
+        // scanned in previous step
+        octNumber = octNumber / 10;
+
+        decimal = decimal + r * pow(8, p);
+        ++p;
+
+    }
+
+    return decimal;
+}
+
+long octToBin(long octNumber) {
+    int i, decimal = 0;
+    long binary = 0;
+    i = 0;
+
+
+    while (octNumber != 0) {
+        decimal = decimal + (octNumber % 10) * pow(8, i);
+        i++;
+        octNumber = octNumber / 10;
+    }
+    i = 1;
+    while (decimal != 0) {
+        binary += ((decimal % 2) * i);
+        decimal = decimal / 2;
+        i = i * 10;
+    }
+
+    return binary;
+}
+
+long octToHex(long octNumber) {
+
+    // convert octal to decimal and convert decimal to hex
+    return octToDec(decToHex(octNumber));
+
+
+
+
+
+}
 
 int main() {
     printf("Enter the coefficient to convert: ");
@@ -133,11 +186,20 @@ int main() {
             printf("\nDecimal number: %ld\nBinary Number: %ld", decimalNumber, binaryNumber);
 
             printf("\nOctal Number: %ld", octNumber);
-            printf("\nHex Number: "); decToHex(decimalNumber);
+            printf("\nHexadecimal Number: ");decToHex(decimalNumber);
             break;
 
 
         case 'O':
+            printf("Enter a Octal number:  ");
+            scanf("%ld", &octNumber);
+            decimalNumber = octToDec(octNumber);
+            binaryNumber = octToBin(octNumber);
+
+            printf("\nOctal Number: %ld\nDecimal number: %ld", octNumber, decimalNumber);
+            printf("\nBinary Number: %ld", binaryNumber);
+            printf("\nHexadecimal Number: ");octToHex(octNumber);
+
             break;
     }
 
