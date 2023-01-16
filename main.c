@@ -95,9 +95,10 @@ long decToBin(long decimalNumber) {
 long decToHex(long decimalNumber) {
     if (decimalNumber < 16) {
         printf("%c", "0123456789ABCDEF"[decimalNumber]); // hien thi ky tu thu n trong chuoi
-        return;
+        return decimalNumber;
     } else decToHex(decimalNumber / 16);
     printf("%c", "0123456789ABCDEF"[decimalNumber % 16]);
+    return decimalNumber;
 }
 
 //Octal
@@ -147,7 +148,7 @@ long octToBin(long octNumber) {
 long octToHex(long octNumber) {
 
     // convert octal to decimal and convert decimal to hex
-    return octToDec(decToHex(octNumber));
+    return decToHex(octToDec(octNumber));
 
 
 
