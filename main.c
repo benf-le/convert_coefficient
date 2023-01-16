@@ -74,24 +74,16 @@ long decToOct(int decimalNumber) {
 
 long decToBin(long decimalNumber) {
 
-//
-//    if (decimalNumber == 0) {
-//        printf("0");
-//
-//    }
-//
-//    // Stores binary representation of number.
-//    long binaryNum[32]; // Assuming 32 bit integer.
-//    long i=0;
-//
-//    while (decimalNumber > 0) {
-//        binaryNum[i++] = decimalNumber % 2;
-//        decimalNumber /= 2;
-//    }
-//
-//    // Printing array in reverse order.
-//    for (long j = i-1; j >= 0; j--){
-//        printf("%ld", binaryNum[j]);}
+    long  binary = 0, remainder, product = 1;
+    // Since the data type is int, it can only accept values up to 1023 before switching to long.
+
+    while (decimalNumber != 0) {
+        remainder = decimalNumber % 2;
+        binary = binary + (remainder * product);
+        decimalNumber = decimalNumber / 2;
+        product *= 10;
+    }
+   return binary ;
 
 }
 
